@@ -233,7 +233,17 @@
 
           var isSpeakDialog = false;
           if (frameDocument) {
-            $(frameDocument).find(':focusable').first().focus();
+
+              // FIX 221201 BEGIN
+
+              try {
+                  $(frameDocument).find(':focusable').first().focus();
+              } catch (e) {
+                  //jquery-ui 1.10.3 raises an exception if something went wrong with find(':focusable')
+                  console.log(e);
+              }
+
+              // FIX 221201 END
 
             var applicationContentContainer = $(frameDocument).find('.scStretchAbsolute.scApplicationContentContainer')[0];
             if(applicationContentContainer) {
